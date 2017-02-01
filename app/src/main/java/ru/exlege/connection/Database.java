@@ -10,12 +10,12 @@ import android.util.Log;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 10;
+    public static final int DATABASE_VERSION = 11;
     public static final String DATABASE_NAME = "SCPUrn.db";
 
     private static final String SQL_CREATE_AP = "CREATE TABLE administratorPrivileges(adm_key TEXT NOT NULL PRIMARY KEY, adm_deadlock bit(1) NOT NULL DEFAULT b0);";
     private static final String SQL_CREATE_CD = "CREATE TABLE candidatos(can_pid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, can_nome TEXT NOT NULL, can_partido TEXT NOT NULL);";
-    private static final String SQL_CREATE_ET = "CREATE TABLE eleitores(ele_titulo LONG NOT NULL PRIMARY KEY, ele_nome TEXT NOT NULL, ele_dataNasc TEXT NOT NULL);";
+    private static final String SQL_CREATE_ET = "CREATE TABLE eleitores(ele_titulo LONG NOT NULL PRIMARY KEY, ele_nome TEXT NOT NULL);";
     private static final String SQL_CREATE_VT = "CREATE TABLE votos(vot_ele_titulo LONG NOT NULL, vot_can_pid INTEGER NOT NULL, vot_branco bit(1) NOT NULL DEFAULT b0, PRIMARY KEY (vot_ele_titulo,vot_can_pid), FOREIGN KEY (vot_ele_titulo) REFERENCES eleitores(ele_titulo), FOREIGN KEY (vot_can_pid) REFERENCES candidatos (can_pid));";
 
     private static final String SQL_POPULATE_AP = "INSERT INTO administratorPrivileges (adm_key, adm_deadlock) VALUES ('123456',0);";

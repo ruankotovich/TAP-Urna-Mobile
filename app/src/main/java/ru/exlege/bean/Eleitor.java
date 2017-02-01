@@ -16,16 +16,14 @@ public class Eleitor implements Validable<Eleitor> {
 
     private long titulo;
     private String nome;
-    private String nascimento;
 
     public Eleitor(long titulo) {
         this.titulo = titulo;
     }
 
-    public Eleitor(long titulo, String nome, String nascimento) {
+    public Eleitor(long titulo, String nome) {
         this.titulo = titulo;
         this.nome = nome;
-        this.nascimento = nascimento;
     }
 
     public long getTitulo() {
@@ -44,17 +42,9 @@ public class Eleitor implements Validable<Eleitor> {
         this.nome = nome;
     }
 
-    public String getNascimento() {
-        return nascimento;
-    }
-
-    public void setNascimento(String nascimento) {
-        this.nascimento = nascimento;
-    }
-
     @Override
     public Eleitor validate() {
-        if (nome.isEmpty() || nascimento.isEmpty() || titulo <= 0) {
+        if (nome.isEmpty() || titulo <= 0) {
             return null;
         } else {
             return this;

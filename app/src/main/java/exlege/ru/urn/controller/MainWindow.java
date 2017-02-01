@@ -59,5 +59,34 @@ public class MainWindow extends AppCompatActivity {
                 alert.show();
             }
         });
+
+        electorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainWindow.this);
+                builder.setMessage("Qual operação deseja realizar com \'Eleitor\'?");
+
+                builder.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(MainWindow.this, CadEleitor.class));
+                    }
+                });
+
+                builder.setNegativeButton("Consultar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(MainWindow.this, ConEleitor.class));
+                    }
+                });
+
+                builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener()     {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
     }
 }

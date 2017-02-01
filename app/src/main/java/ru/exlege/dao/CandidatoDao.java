@@ -80,8 +80,8 @@ public class CandidatoDao {
             String query = "UPDATE candidatos " +
                     "set can_pid="+candidato.getPid()+", " +
                     "can_nome='"+candidato.getNome()+"', " +
-                    "can_partido='"+candidato.getPartido()+"', " +
-                    "where can_pid="+candidato.getPid();
+                    "can_partido='"+candidato.getPartido()+"'"+
+                    " where can_pid="+pid;
 
             database.execSQL(query);
             return true;
