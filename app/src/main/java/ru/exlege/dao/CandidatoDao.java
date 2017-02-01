@@ -34,12 +34,11 @@ public class CandidatoDao {
         this.database = new Database(context).getWritableDatabase();
     }
 
-
     public boolean cadastrar(Validable<Candidato> candidatoVal) {
         Candidato can = candidatoVal.validate();
         if(can != null) {
             try {
-                String query = "INSERT INTO `candidatos` (`can_pid`, `can_nome`, `can_partido`) " +
+                String query = "INSERT INTO candidatos (can_pid, can_nome, can_partido) " +
                         "VALUES (" + can.getPid() + ",'" + can.getNome() + "','" + can.getPartido() + "')";
                 database.execSQL(query);
                 return true;
@@ -55,7 +54,7 @@ public class CandidatoDao {
     public Candidato consultar(int pid) {
         Candidato can = null;
 
-        String query = "SELECT can_pid, can_nome, can_partido FROM `candidatos` where `can_pid`="+pid;
+        String query = "SELECT can_pid, can_nome, can_partido FROM candidatos where can_pid="+pid;
         Cursor c = database.rawQuery(query, null);
 
         if(c.moveToNext()){
@@ -68,7 +67,7 @@ public class CandidatoDao {
     public boolean deletar(int pid) {
 
         try {
-            String query = "DELETE FROM `candidatos` WHERE can_pid = "+pid;
+            String query = "DELETE FROM candidatos WHERE can_pid = "+pid;
             database.execSQL(query);
             return true;
         }catch(Exception ex){
@@ -78,7 +77,7 @@ public class CandidatoDao {
 
     public boolean alterar(int pid, Candidato candidato) {
         try {
-            String query = "UPDATE `candidatos` " +
+            String query = "UPDATE candidatos " +
                     "set can_pid="+candidato.getPid()+", " +
                     "can_nome='"+candidato.getNome()+"', " +
                     "can_partido='"+candidato.getPartido()+"', " +
@@ -94,7 +93,7 @@ public class CandidatoDao {
     public ArrayList<Candidato> candidatos() {
         ArrayList<Candidato> arrayList = new ArrayList<>();
 
-            String query = "SELECT can_pid, can_nome, can_partido FROM `candidatos` WHERE can_pid > 0 order by can_nome asc,can_partido asc";
+            String query = "SELECT can_pid, can_nome, can_partido FROM candidatos WHERE can_pid > 0 order by can_nome asc,can_partido asc";
             Cursor cur = database.rawQuery(query, null);
 
             while(cur.moveToNext()){
@@ -111,7 +110,7 @@ public class CandidatoDao {
 
         ArrayList<Candidato> arrayList = new ArrayList<>();
 
-        String quer = ("SELECT can_pid, can_nome, can_partido FROM `candidatos` WHERE can_pid > 0 AND (can_pid like ? OR can_nome like ? OR can_partido like ?) order by can_nome asc,can_partido asc");
+        String quer = ("SELECT can_pid, can_nome, can_partido FROM candidatos WHERE can_pid > 0 AND (can_pid like ? OR can_nome like ? OR can_partido like ?) order by can_nome asc,can_partido asc");
         Cursor cur = database.rawQuery(quer, null);
 
         while(cur.moveToNext()){

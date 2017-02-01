@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name="exlege.ru.urn.controller.MainWindow" />
-        <activity android:name="exlege.ru.urn.controller.CadCandidato"></activity>
+        <activity android:name="exlege.ru.urn.controller.CadCandidato" />
+        <activity android:name="exlege.ru.urn.controller.ConCandidato"></activity>
     </application>
 
 </manifest>

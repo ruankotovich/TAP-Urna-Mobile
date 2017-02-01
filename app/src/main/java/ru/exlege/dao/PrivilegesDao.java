@@ -8,6 +8,7 @@ package ru.exlege.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import ru.exlege.connection.Database;
 
@@ -30,8 +31,16 @@ public class PrivilegesDao {
         boolean ret = cursor.moveToNext();
 
         cursor.close();
-
         return ret;
+    }
+
+    public void listSQLiteTables(){
+        String query = "SELECT * FROM sqlite_master where type='table'";
+        Cursor c = database.rawQuery(query, null);
+
+        while(c.moveToNext()){
+            Log.e("SQLite Tables", c.getString(0) + " | " + c.getString(1));
+        }
     }
 
     public boolean verifyDeadlock() {

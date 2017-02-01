@@ -1,6 +1,7 @@
 package exlege.ru.urn.controller;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,13 +40,13 @@ public class MainWindow extends AppCompatActivity {
 
                 builder.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        startActivity(new Intent(MainWindow.this, CadCandidato.class));
                     }
                 });
 
                 builder.setNegativeButton("Consultar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        startActivity(new Intent(MainWindow.this, ConCandidato.class));
                     }
                 });
 
