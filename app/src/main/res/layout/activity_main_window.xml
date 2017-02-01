@@ -4,49 +4,22 @@
     android:id="@+id/activity_main_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgMain"
+    android:gravity="center"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#111144"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:text="Escolha o módulo"
-        android:textSize="30dp"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
         android:gravity="center|center_horizontal"
-        android:paddingBottom="30dp"/>
-
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/political" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Candidatos"
-        android:paddingRight="10dp"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/user"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eleitores"
-        android:paddingRight="10dp"
-        />
-</LinearLayout>
+        android:paddingBottom="30dp"
+        android:text="Escolha o módulo"
+        android:textSize="30dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,25 +29,56 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/graphic"/>
+            android:background="@drawable/political"
+            android:id="@+id/candidateButton"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Analytics"
             android:paddingRight="10dp"
-            />
+            android:text="Candidatos" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/vote"/>
+            android:background="@drawable/user"
+            android:id="@+id/electorButton"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Votação"
             android:paddingRight="10dp"
-            />
+            android:text="Eleitores" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/graphic"
+            android:id="@+id/analyticsButton"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:text="Analytics" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vote"
+            android:id="@+id/voteButton"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:text="Votação" />
     </LinearLayout>
 
 </LinearLayout>

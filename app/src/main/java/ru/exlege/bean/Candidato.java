@@ -19,17 +19,15 @@ public class Candidato implements Validable<Candidato> {
     private int pid;
     private String nome;
     private String partido;
-    private Blob foto;
 
     public Candidato(int pid) {
         this.pid = pid;
     }
 
-    public Candidato(int pid, String nome, String partido, Blob foto) {
+    public Candidato(int pid, String nome, String partido) {
         this.pid = pid;
         this.nome = nome;
         this.partido = partido;
-        this.foto = foto;
     }
 
     public int getPid() {
@@ -54,14 +52,6 @@ public class Candidato implements Validable<Candidato> {
 
     public void setPartido(String partido) {
         this.partido = partido;
-    }
-
-    public Blob getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Blob foto) {
-        this.foto = foto;
     }
 
     @Override
