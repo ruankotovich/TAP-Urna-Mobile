@@ -21,7 +21,9 @@
         <activity android:name="exlege.ru.urn.controller.CadCandidato" />
         <activity android:name="exlege.ru.urn.controller.ConCandidato" />
         <activity android:name="exlege.ru.urn.controller.CadEleitor" />
-        <activity android:name="exlege.ru.urn.controller.ConEleitor"></activity>
+        <activity android:name="exlege.ru.urn.controller.ConEleitor" />
+        <activity android:name="exlege.ru.urn.controller.VoteElectorLoginScreen" />
+        <activity android:name="exlege.ru.urn.controller.VoteCandidateScreen"></activity>
     </application>
 
 </manifest>

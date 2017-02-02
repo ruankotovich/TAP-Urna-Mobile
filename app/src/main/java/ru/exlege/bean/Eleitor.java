@@ -6,13 +6,15 @@
 package ru.exlege.bean;
 
 
+import java.io.Serializable;
+
 import ru.exlege.pojo.Validable;
 
 /**
  *
  * @author dmitry
  */
-public class Eleitor implements Validable<Eleitor> {
+public class Eleitor implements Validable<Eleitor>, Serializable {
 
     private long titulo;
     private String nome;

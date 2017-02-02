@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:gravity="center|center_horizontal"
         android:paddingBottom="30dp"
+        android:paddingTop="100dp"
         android:text="Escolha o módulo"
         android:textSize="30dp" />
 
@@ -80,5 +81,43 @@
             android:paddingRight="10dp"
             android:text="Votação" />
     </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/mwToken">
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="#DDDDDD"
+        android:text="TOKEN DE ADMINISTRAÇÃO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="40"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:id="@+id/mwTokenET"
+        android:layout_alignParentEnd="true"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:text="ENTRAR"
+        android:background="#440000"
+        android:id="@+id/mwTokenBT"/>
+</LinearLayout>
 
 </LinearLayout>

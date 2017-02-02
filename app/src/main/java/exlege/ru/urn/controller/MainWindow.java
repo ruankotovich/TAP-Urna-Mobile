@@ -5,16 +5,22 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import exlege.ru.scpurn.R;
+import ru.exlege.dao.PrivilegesDao;
 
 
 public class MainWindow extends AppCompatActivity {
 
-    private Button electorButton, candidateButton, voteButton, analyticsButton;
+    private Button electorButton, candidateButton, voteButton, analyticsButton, tokenButton;
+    private EditText tokenPassword;
+    private LinearLayout tokenView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,11 @@ public class MainWindow extends AppCompatActivity {
         candidateButton = (Button) findViewById(R.id.candidateButton);
         voteButton = (Button) findViewById(R.id.voteButton);
         analyticsButton = (Button) findViewById(R.id.analyticsButton);
+        tokenView = (LinearLayout) findViewById(R.id.mwToken);
+        tokenPassword = (EditText) findViewById(R.id.mwTokenET);
+        tokenButton = (Button) findViewById(R.id.mwTokenBT);
+
+        tokenView.setVisibility(View.INVISIBLE);
 
         buildListeners();
 
@@ -32,6 +43,28 @@ public class MainWindow extends AppCompatActivity {
     }
 
     private void buildListeners(){
+
+        voteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tokenView.setVisibility(View.VISIBLE);
+                tokenPassword.requestFocus();
+            }
+        });
+
+        tokenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean login = new PrivilegesDao(MainWindow.this).verifyPrivileges(tokenPassword.getText().toString());
+                if(login){
+                    startActivity(new Intent(MainWindow.this, VoteElectorLoginScreen.class));
+                }else{
+                    Toast.makeText(MainWindow.this, "Token Incorreto.", Toast.LENGTH_SHORT).show();
+                }
+                tokenView.setVisibility(View.INVISIBLE);
+            }
+        });
+
         candidateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

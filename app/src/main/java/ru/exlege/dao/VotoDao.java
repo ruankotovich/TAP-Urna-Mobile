@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.exlege.model.dao;
+package ru.exlege.dao;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +16,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ru.exlege.model.bean.AveragePair;
-import ru.exlege.model.pojo.Analytics;
-import ru.exlege.model.pojo.ConnectionFactory;
+
+import ru.exlege.bean.AveragePair;
+import ru.exlege.connection.Database;
+import ru.exlege.pojo.Analytics;
 
 /**
  *
@@ -22,74 +27,50 @@ import ru.exlege.model.pojo.ConnectionFactory;
  */
 public class VotoDao {
 
-    private static PreparedStatement stmt;
-    private static Connection con;
-    private static ResultSet rs;
+    private SQLiteDatabase database;
 
-    public static boolean verifyAble(long titulo) {
-        con = ConnectionFactory.openPersistentConnection(10000);
-        try {
-            stmt = con.prepareStatement("select * from votos where vot_ele_titulo = ?");
-            stmt.setLong(1, titulo);
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                con.close();
-                ConnectionFactory.notifyThreadDeleted();
-                return false;
-            } else {
-                con.close();
-                ConnectionFactory.notifyThreadDeleted();
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(VotoDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+    public VotoDao(Context context) {
+        this.database = new Database(context).getWritableDatabase();
     }
 
-    public static boolean commitVote(long titulo, int pid, boolean branco) {
-        con = ConnectionFactory.openPersistentConnection(10000);
-        try {
-            stmt = con.prepareStatement("insert into votos (vot_ele_titulo, vot_can_pid,vot_branco) values (?,?,?)");
-            stmt.setLong(1, titulo);
-            stmt.setInt(2, pid);
-            stmt.setBoolean(3, branco);
-            stmt.execute();
-            ConnectionFactory.notifyThreadDeleted();
-            con.close();
+
+    public  boolean verifyAble(long titulo) {
+        String query = "select * from votos where vot_ele_titulo = "+titulo;
+        Cursor c = database.rawQuery(query, null);
+        return !c.moveToNext();
+    }
+
+    public boolean commitVote(long titulo, int pid, boolean branco) {
+        try{
+            String query = "insert into votos (vot_ele_titulo, vot_can_pid,vot_branco) values ("+titulo+","+pid+","+branco+")";
+            database.execSQL(query);
             return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(VotoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception ex){
             return false;
         }
     }
 
-    public static Analytics getAnalytcs() {
+    public Analytics getAnalytcs() {
         Analytics analytics = null;
         ArrayList<AveragePair> arraylist = new ArrayList<>();
         AveragePair current = null;
         int count = 0;
-        con = ConnectionFactory.openPersistentConnection(10000);
-        try {
-            stmt = con.prepareStatement("select can_nome, count(vot_can_pid) as c from candidatos left join votos on can_pid = vot_can_pid group by can_pid order by c desc, can_nome;");
-            rs = stmt.executeQuery();
 
-            while (rs.next()) {
+        String query = "select can_nome, count(vot_can_pid) as c from candidatos left join votos on can_pid = vot_can_pid group by can_pid order by c desc, can_nome;";
+        Cursor c = database.rawQuery(query, null);
+
+            while (c.moveToNext()) {
                 current = new AveragePair();
-                current.setName(rs.getString("can_nome"));
-                current.setVotes(rs.getInt("c"));
+                current.setName(c.getString(0));
+                current.setVotes(c.getInt(1));
                 arraylist.add(current);
                 if (current.getVotes() != 0) {
                     count += current.getVotes();
                 }
             }
 
-            analytics = new Analytics(arraylist, count);
-            ConnectionFactory.notifyThreadDeleted();
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(VotoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        analytics = new Analytics(arraylist, count);
+
         return analytics;
     }
 }
