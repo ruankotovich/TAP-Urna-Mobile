@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#FFFFFF"
+    android:background="@drawable/leaf"
     tools:context="exlege.ru.urn.controller.VoteCandidateScreen">
 
     <TextView
@@ -23,12 +23,28 @@
         android:layout_marginTop="30dp"
         android:id="@+id/vcsElector" />
 
-    <ListView
-        android:layout_marginTop="50dp"
-        android:id="@+id/list"
+    <Button
+        android:text="Votar em candidato selecionado"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:background="#CCFFCC"
         android:layout_height="wrap_content"
+        android:id="@+id/vcsVotar" />
+
+    <ListView
+        android:choiceMode="singleChoice"
+        android:listSelector="#88CC88"
+        android:cacheColorHint="#819FF7"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:id="@+id/list"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@android:drawable/editbox_dropdown_light_frame">
     </ListView>
+
 
 </LinearLayout>

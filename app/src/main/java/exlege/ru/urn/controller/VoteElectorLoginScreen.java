@@ -37,6 +37,7 @@ public class VoteElectorLoginScreen extends AppCompatActivity {
                     if (able) {
                         Eleitor ele = new EleitorDao(VoteElectorLoginScreen.this).consultar(titulo);
                         if (ele != null) {
+                            etTitulo.setText("");
                             Intent it = new Intent(VoteElectorLoginScreen.this, VoteCandidateScreen.class);
                             it.putExtra("eleitor", ele);
                             startActivity(it);

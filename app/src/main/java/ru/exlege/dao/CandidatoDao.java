@@ -8,6 +8,7 @@ package ru.exlege.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -125,11 +126,21 @@ public class CandidatoDao {
 
     public Candidato getWhite() {
         Candidato can = null;
+        int last=-1;
 
         Cursor cur = database.rawQuery("select vot_can_pid, count(*) as c from votos group by vot_can_pid order by c desc;", null);
 
-        if(cur.moveToNext()){
-            can = new Candidato(cur.getInt(0));
+        while(cur.moveToNext()){
+            if(last<0){
+                last = cur.getInt(1);
+                can = new Candidato(cur.getInt(0));
+            }else{
+                if(last > cur.getInt(1)){
+                    return can;
+                }else{
+                    return null;
+                }
+            }
         }
 
         return can;

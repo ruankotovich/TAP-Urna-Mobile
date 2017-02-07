@@ -42,7 +42,7 @@ public class VotoDao {
 
     public boolean commitVote(long titulo, int pid, boolean branco) {
         try{
-            String query = "insert into votos (vot_ele_titulo, vot_can_pid,vot_branco) values ("+titulo+","+pid+","+branco+")";
+            String query = "insert into votos (vot_ele_titulo, vot_can_pid,vot_branco) values ("+titulo+","+pid+","+(branco?"1":"0")+")";
             database.execSQL(query);
             return true;
         }catch(Exception ex){
@@ -56,7 +56,7 @@ public class VotoDao {
         AveragePair current = null;
         int count = 0;
 
-        String query = "select can_nome, count(vot_can_pid) as c from candidatos left join votos on can_pid = vot_can_pid group by can_pid order by c desc, can_nome;";
+        String query = "select can_nome, count(vot_can_pid) as c from candidatos inner join votos on can_pid = vot_can_pid group by can_pid order by c desc, can_nome limit 3;";
         Cursor c = database.rawQuery(query, null);
 
             while (c.moveToNext()) {

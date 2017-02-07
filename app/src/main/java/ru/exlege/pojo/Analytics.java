@@ -31,4 +31,8 @@ public class Analytics {
         return total;
     }
 
+    @Override
+    public String toString() {
+        return total+"";
+    }
 }

@@ -1,6 +1,9 @@
 package ru.exlege.pojo;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,11 +56,18 @@ public class CandidatoAdapter extends BaseAdapter{
         View rowView = mInflater.inflate(R.layout.linear_candidate_adapted, parent, false);
         TextView tvPartido = (TextView) rowView.findViewById(R.id.lcaPartido);
         TextView tvNome = (TextView) rowView.findViewById(R.id.lcaNome);
+        TextView tvCodigo = (TextView) rowView.findViewById(R.id.lcaNumero);
 
         Candidato can = (Candidato) getItem(position);
         tvPartido.setText(can.getPartido());
-        tvNome.setText(can.getNome()+" - "+can.getPid());
-
+        if(can.getPartido().equals("<>")){
+            tvNome.setText(can.getNome());
+            tvNome.setTextColor(ColorStateList.valueOf(Color.GRAY));
+            tvCodigo.setVisibility(View.GONE);
+        }else {
+            tvNome.setText(can.getNome());
+            tvCodigo.setText("Número "+can.getPid());
+        }
         return rowView;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import exlege.ru.scpurn.R;
 import ru.exlege.dao.PrivilegesDao;
+import ru.exlege.pojo.Analytics;
 
 
 public class MainWindow extends AppCompatActivity {
@@ -61,6 +62,7 @@ public class MainWindow extends AppCompatActivity {
                 }else{
                     Toast.makeText(MainWindow.this, "Token Incorreto.", Toast.LENGTH_SHORT).show();
                 }
+                tokenPassword.setText("");
                 tokenView.setVisibility(View.INVISIBLE);
             }
         });
@@ -118,6 +120,13 @@ public class MainWindow extends AppCompatActivity {
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+            }
+        });
+
+        analyticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainWindow.this, AnalyticsWindow.class));
             }
         });
 

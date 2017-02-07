@@ -1,26 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:gravity="center">
-
-<TextView
-    android:id="@+id/lcaPartido"
-    android:layout_marginLeft="10dp"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp"
+    android:layout_gravity="center"
     android:layout_height="wrap_content"
-    android:textSize="25dp"
-    android:text="Partido"
-    android:textColor="#CC0000"/>
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@android:drawable/alert_light_frame">
 
-    <TextView
-        android:id="@+id/lcaNome"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Nome do Tiozão e Código"
-        android:textColor="#333333"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:background="#CCCCCC"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lcaPartido"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Partido"
+            android:textColor="#CC0000"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/lcaNumero"
+            android:background="@drawable/numb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Código do candidato"
+            android:textColor="#0000CC"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/lcaNome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Nome do Tiozão"
+            android:textColor="#333333"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

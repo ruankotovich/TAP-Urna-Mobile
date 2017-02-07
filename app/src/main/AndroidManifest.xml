@@ -23,7 +23,8 @@
         <activity android:name="exlege.ru.urn.controller.CadEleitor" />
         <activity android:name="exlege.ru.urn.controller.ConEleitor" />
         <activity android:name="exlege.ru.urn.controller.VoteElectorLoginScreen" />
-        <activity android:name="exlege.ru.urn.controller.VoteCandidateScreen"></activity>
+        <activity android:name="exlege.ru.urn.controller.VoteCandidateScreen" />
+        <activity android:name="exlege.ru.urn.controller.AnalyticsWindow"></activity>
     </application>
 
 </manifest>

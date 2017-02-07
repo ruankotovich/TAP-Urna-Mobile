@@ -30,6 +30,7 @@ public class SplashScreen extends AppCompatActivity {
                 boolean login = new PrivilegesDao(SplashScreen.this).verifyPrivileges(passwordField.getText().toString());
 
                 if(login){
+                    passwordField.setText("");
                     startActivity(new Intent(SplashScreen.this, MainWindow.class));
                 }else{
                     Toast.makeText(SplashScreen.this, "Token Incorreto.", Toast.LENGTH_SHORT).show();
