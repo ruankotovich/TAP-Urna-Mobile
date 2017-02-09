@@ -36,6 +36,7 @@ public class PrivilegesDao {
 
     public void listSQLiteTables(){
         String query = "SELECT * FROM sqlite_master where type='table'";
+
         Cursor c = database.rawQuery(query, null);
 
         while(c.moveToNext()){
@@ -44,17 +45,23 @@ public class PrivilegesDao {
     }
 
     public boolean verifyDeadlock() {
-        String query = ("SELECT * FROM administratorPrivileges WHERE adm_deadlock=b'1';");
-        return false;
+        String query = ("SELECT * FROM administratorPrivileges WHERE adm_deadlock=1;");
+        if(database.rawQuery(query, null).moveToNext()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public boolean revokeDeadlock() {
-        String query = ("UPDATE administratorPrivileges set adm_deadlock=b'0';");
+        String query = ("UPDATE administratorPrivileges set adm_deadlock=0;");
+        database.execSQL(query);
         return false;
     }
 
     public boolean doDeadlock(String password) {
-        String query = "UPDATE administratorPrivileges set adm_deadlock=b'1' where adm_key = md5(?);";
+        String query = "UPDATE administratorPrivileges set adm_deadlock=1 where adm_key = '"+password+"'";
+        database.execSQL(query);
         return false;
     }
 }

@@ -43,7 +43,7 @@ public class MainWindow extends AppCompatActivity {
         Toast.makeText(this, "Bem-Vindo!", Toast.LENGTH_SHORT).show();
     }
 
-    private void buildListeners(){
+    private void buildListeners() {
 
         voteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,10 +56,33 @@ public class MainWindow extends AppCompatActivity {
         tokenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean login = new PrivilegesDao(MainWindow.this).verifyPrivileges(tokenPassword.getText().toString());
-                if(login){
-                    startActivity(new Intent(MainWindow.this, VoteElectorLoginScreen.class));
-                }else{
+                final String pass = tokenPassword.getText().toString();
+                boolean login = new PrivilegesDao(MainWindow.this).verifyPrivileges(pass);
+                boolean isDeadlock = new PrivilegesDao(MainWindow.this).verifyDeadlock();
+                if (login) {
+                    if (!isDeadlock) {
+                        startActivity(new Intent(MainWindow.this, VoteElectorLoginScreen.class));
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainWindow.this);
+                        builder.setMessage("A votação foi encerrada, deseja reabrir a votação?");
+
+                        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                new PrivilegesDao(MainWindow.this).revokeDeadlock();
+                                startActivity(new Intent(MainWindow.this, VoteElectorLoginScreen.class));
+                            }
+                        });
+
+                        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+                } else {
                     Toast.makeText(MainWindow.this, "Token Incorreto.", Toast.LENGTH_SHORT).show();
                 }
                 tokenPassword.setText("");
@@ -85,7 +108,7 @@ public class MainWindow extends AppCompatActivity {
                     }
                 });
 
-                builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener()     {
+                builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -113,7 +136,7 @@ public class MainWindow extends AppCompatActivity {
                     }
                 });
 
-                builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener()     {
+                builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -126,7 +149,11 @@ public class MainWindow extends AppCompatActivity {
         analyticsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainWindow.this, AnalyticsWindow.class));
+                if (new PrivilegesDao(MainWindow.this).verifyDeadlock()) {
+                    startActivity(new Intent(MainWindow.this, AnalyticsWindow.class));
+                } else {
+                    Toast.makeText(MainWindow.this, "A votação ainda não foi encerrada\nEncerre a votação para ver as estatísticas", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
