@@ -81,7 +81,7 @@ public class AnalyticsWindow extends AppCompatActivity {
                     secondP.setVisibility(View.GONE);
                     thirdP.setVisibility(View.GONE);
                 case 2:
-                    secondP.setVisibility(View.GONE);
+                    thirdP.setVisibility(View.GONE);
                 default:
                     break;
             }
